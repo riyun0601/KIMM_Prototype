@@ -1,3 +1,4 @@
+// Part Design-only toolbar configuration.
 const iconPath = (index) => `./refs/icons/line4/4-${index}.png`;
 
 const partDesignActions = [

@@ -1,3 +1,4 @@
+// Part-only toolbar configuration.
 const iconPath = (index) => `./refs/icons/line3/3-${index}.png`;
 
 const partActions = [

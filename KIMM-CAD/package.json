@@ -8,7 +8,7 @@
     "start": "vite --host 127.0.0.1",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
-    "check": "node --check src/main.js && node --check src/cad/model/cad-document.js && node --check src/cad/geometry/geometry-adapter.js && node --check src/cad/operations/workflow-registry.js && node --check src/cad/viewport/create-three-viewport.js && node --check src/workbenches/base-toolbar.js && node --check src/workbenches/part.js && node --check src/workbenches/part-design.js"
+    "check": "node --check src/main.js && node --check src/app/assembly-shell.js && node --check src/cad/model/cad-document.js && node --check src/cad/geometry/geometry-adapter.js && node --check src/cad/operations/workflow-registry.js && node --check src/cad/viewport/create-three-viewport.js && node --check src/workbenches/common/base-toolbar.js && node --check src/workbenches/part/toolbar.js && node --check src/workbenches/part/commands.js && node --check src/workbenches/part-design/toolbar.js && node --check src/workbenches/part-design/commands.js && node --check src/workbenches/sketcher/toolbar.js && node --check src/workbenches/sketcher/commands.js"
   },
   "dependencies": {
     "three": "^0.185.1"

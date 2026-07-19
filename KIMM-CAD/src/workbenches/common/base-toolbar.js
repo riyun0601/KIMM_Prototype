@@ -1,3 +1,4 @@
+// Shared command rows used by every workbench.
 const iconPath = (line, index) => `./refs/icons/line${line}/${line}-${index}.png`;
 
 const nameByIndex = {
