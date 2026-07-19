@@ -27,7 +27,8 @@ Do not expand the product into a general-purpose CAD application. Implement only
 - The workbench picker uses the text ordering in `refs/UI/FreeCAD_Workbench.png`.
 - Start shows common rows 1 and 2; Part shows 1, 2, and 3; Part Design shows 1, 2, and 4.
 - Keep icon ordering from `refs/icons/line1` through `line4` numeric order.
-- Sketcher is selectable in the workbench picker. Do not invent a Sketcher-specific icon row until suitable reference assets are provided.
+- Sketcher uses `refs/icons/line5.png` as its third toolbar row. Keep the image intact and place transparent hover/click hitboxes above it.
+- Sketcher toolbar item 2 owns an orthogonal polyline: keep adding points and click the first point again to close/complete it. Completion releases the tool, so a new path requires selecting item 2 again. Item 5 owns center-and-radius circle creation.
 
 ## Folder ownership
 
@@ -72,14 +73,15 @@ Three.js is for rendering, navigation, selection, and transform handles. It is n
 ## Current status
 
 - The assembly UI and Start / Part / Part Design toolbar transitions work.
-- Sketcher now has its own workbench folder, command boundary, and selectable picker state.
-- `cad/` provides only shared environment scaffolding. The Three.js viewport is not yet mounted in the assembly page and none of the 11 geometry operations is implemented yet.
+- Sketcher has its own folder, selectable picker state, `line5.png` toolbar row, and transparent hitboxes for all toolbar icons.
+- Sketcher item 2 creates an orthogonal polyline closed by re-clicking its first point. Item 5 creates a center-and-radius circle with a live radius preview. These are temporary 2D sketch-plane interactions, not yet persisted into `cad-document`.
+- `cad/` provides shared environment scaffolding. The Three.js viewport is not yet mounted in the assembly page and the remaining parametric/solid operations are not implemented yet.
 
 ## Development order
 
-1. Mount `createThreeViewport()` in the shared viewport and replace the SVG placeholder.
+1. Persist the current Sketcher polyline/circle interactions into `cad-document`, then mount `createThreeViewport()` for the shared 3D viewport.
 2. Prove the data pipeline with one Box or Cylinder: feature data → rendered mesh → selection → Property edit → rebuilt mesh.
-3. Implement Sketcher geometry, constraints, and face mapping.
+3. Add Sketcher constraints and face mapping.
 4. Implement Part Design Revolve and Array.
 5. Implement Part Cylinder and Boolean Cut through the concrete GeometryAdapter.
 6. Connect every workflow command to the required toolbar/menu interaction and manually complete all 11 steps.

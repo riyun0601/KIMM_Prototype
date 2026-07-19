@@ -1,7 +1,8 @@
 import { baseToolbar, workbenchMenu } from '../workbenches/common/base-toolbar.js';
 import { partWorkbench } from '../workbenches/part/toolbar.js';
 import { partDesignWorkbench } from '../workbenches/part-design/toolbar.js';
-import { sketcherWorkbench } from '../workbenches/sketcher/toolbar.js';
+import { sketcherToolbar, sketcherWorkbench } from '../workbenches/sketcher/toolbar.js';
+import { createSketcherEditor } from '../workbenches/sketcher/editor.js';
 
 const workbenches = {
   Start: { id: 'start', label: 'Start', documentLabel: null, toolbarLine: [] },
@@ -11,6 +12,7 @@ const workbenches = {
 };
 
 const app = document.querySelector('#app');
+const sketcherEditor = createSketcherEditor({ onStatus: setStatus });
 let selectedWorkbench = workbenches.Start;
 let menuOpen = false;
 
@@ -25,6 +27,27 @@ function toolbarButton(item) {
 
 function toolbarRow(items, extraClass = '') {
   return `<div class="toolbar-row ${extraClass}">${items.map(toolbarButton).join('')}</div>`;
+}
+
+function sketcherToolbarRow() {
+  const buttons = sketcherToolbar.items.map((item) => `
+    <button
+      class="sketcher-toolbar-hitbox"
+      type="button"
+      style="left:${item.left}px;width:${item.width}px"
+      data-sketcher-tool="${item.tool || ''}"
+      data-sketcher-label="${item.label}"
+      aria-label="${item.label}"
+      title="${item.label}">
+    </button>`).join('');
+
+  return `
+    <div class="toolbar-row workbench-toolbar sketcher-toolbar-row">
+      <div class="sketcher-toolbar-strip" style="width:${sketcherToolbar.width}px">
+        <img src="${sketcherToolbar.image}" alt="Sketcher toolbar" draggable="false" />
+        <div class="sketcher-toolbar-hitboxes">${buttons}</div>
+      </div>
+    </div>`;
 }
 
 function workbenchOptions() {
@@ -50,6 +73,8 @@ function treeContent() {
 }
 
 function viewportObject() {
+  if (selectedWorkbench.id === 'sketcher') return sketcherEditor.markup();
+
   if (selectedWorkbench.id === 'start') {
     return `<div class="origin-axes" aria-label="3D axis indicator"><i class="axis-z"></i><i class="axis-x"></i><i class="axis-y"></i><b>Z</b><em>X</em><span>Y</span></div>`;
   }
@@ -64,9 +89,11 @@ function viewportObject() {
 }
 
 function render() {
-  const selectedLine = selectedWorkbench.toolbarLine.length
-    ? toolbarRow(selectedWorkbench.toolbarLine, 'workbench-toolbar')
-    : '';
+  const selectedLine = selectedWorkbench.id === 'sketcher'
+    ? sketcherToolbarRow()
+    : selectedWorkbench.toolbarLine.length
+      ? toolbarRow(selectedWorkbench.toolbarLine, 'workbench-toolbar')
+      : '';
 
   app.innerHTML = `
     <main class="cad-window">
@@ -115,7 +142,7 @@ function render() {
           </div>
           <div class="view-tabs"><button class="is-active">View</button><button>Data</button></div>
         </aside>
-        <section class="viewport">
+        <section class="viewport${selectedWorkbench.id === 'sketcher' ? ' is-sketcher' : ''}">
           ${viewportObject()}
           <div class="navigation-cube"><span class="nav-face top"></span><span class="nav-face left"></span><span class="nav-face right"></span></div>
         </section>
@@ -130,6 +157,14 @@ function setStatus(message) {
 }
 
 app.addEventListener('click', (event) => {
+  const sketcherButton = event.target.closest('[data-sketcher-tool]');
+  if (sketcherButton) {
+    const tool = sketcherButton.dataset.sketcherTool;
+    if (tool) sketcherEditor.setTool(tool);
+    else setStatus(`${sketcherButton.dataset.sketcherLabel} is not implemented yet`);
+    return;
+  }
+
   const workbenchButton = event.target.closest('[data-workbench]');
   if (workbenchButton) {
     const requested = workbenchButton.dataset.workbench;
@@ -150,11 +185,22 @@ app.addEventListener('click', (event) => {
   if (action) setStatus(`${action} selected`);
 });
 
+app.addEventListener('pointerdown', (event) => {
+  if (selectedWorkbench.id === 'sketcher') sketcherEditor.handlePointerDown(event);
+});
+
+app.addEventListener('pointermove', (event) => {
+  if (selectedWorkbench.id === 'sketcher') sketcherEditor.handlePointerMove(event);
+});
+
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && menuOpen) {
     menuOpen = false;
     render();
+    return;
   }
+
+  if (event.key === 'Escape' && selectedWorkbench.id === 'sketcher') sketcherEditor.cancel();
 });
 
 render();

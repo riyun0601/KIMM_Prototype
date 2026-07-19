@@ -39,7 +39,7 @@ Part, Part Design, Sketcher의 기능은 각각 대응하는 `src/workbenches/<n
 - Start: 공통 1·2줄 툴바
 - Part: 공통 1·2줄 + `line3` 아이콘 툴바
 - Part Design: 공통 1·2줄 + `line4` 아이콘 툴바
-- Sketcher: 워크벤치 메뉴에서 선택 가능; 별도 아이콘 참조가 제공되기 전까지 공통 툴바만 표시
+- Sketcher: `line5.png`를 3번째 툴바 줄로 표시하며, 2번 꺾은선과 5번 중심-반지름 원 도구 동작 제공
 
 ## 참고 문서
 
