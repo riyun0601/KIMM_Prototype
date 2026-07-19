@@ -61,6 +61,9 @@ export function partDesignFlowReducer(state, event) {
       return {
         ...state,
         activeWorkbench: 'sketcher',
+        comboTab: 'model',
+        task: null,
+        selectedPlaneId: null,
         viewport: '2d-sketch',
         sketchEditing: true,
       };

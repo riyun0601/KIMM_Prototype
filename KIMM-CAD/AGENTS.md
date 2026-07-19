@@ -27,7 +27,7 @@ Do not expand the product into a general-purpose CAD application. Implement only
 - The workbench picker uses the text ordering in `refs/UI/FreeCAD_Workbench.png`.
 - Start shows common rows 1 and 2; Part shows 1, 2, and 3; Part Design shows 1, 2, and 4.
 - Keep icon ordering from `refs/icons/line1` through `line4` numeric order.
-- Sketcher is selectable in the workbench picker. Do not invent a Sketcher-specific icon row until suitable reference assets are provided.
+- Sketcher uses `refs/icons/line5.png` as its third toolbar row. Keep the image intact and place transparent hover/click hitboxes above its measured icon bounds. Item 2 creates the profile path; item 5 creates the face circle.
 
 ## Folder ownership
 
@@ -71,9 +71,11 @@ Three.js is for rendering, navigation, selection, and transform handles. It is n
 
 ## Current status
 
-- The assembly UI and Start / Part / Part Design toolbar transitions work.
-- Sketcher now has its own workbench folder, command boundary, and selectable picker state.
-- `cad/` provides only shared environment scaffolding. The Three.js viewport is not yet mounted in the assembly page and none of the 11 geometry operations is implemented yet.
+- The assembly UI and Start / Part / Part Design / Sketcher toolbar transitions work.
+- The Part Design Create sketch attachment-plane task remains the entry for an initial profile sketch. Confirming a plane opens the same Three.js viewport in an orthographic Top view; it is not a separate SVG drawing screen.
+- `cad/viewport/create-three-viewport.js` is mounted by the assembly page for both 3D and sketch states. It supports middle-mouse panning, right-click orbiting, face hover/picking, Top-view sketch input, and a camera-synchronised six-face View Cube.
+- `workbenches/part-design/bracket-workflow.js` owns the prototype flow: profile completion, 4-13 Revolution, selected-face Sketcher circle, 4-19 Pocket, and 4-27 Polar pattern task. Its rendered bracket is a test prototype, not a general geometry kernel.
+- Sketcher completion returns to Part Design and saves the closed profile points in `bracket-workflow` so the profile remains visible before Revolution. A selected Revolution face lets Create sketch enter a face-circle sketch directly; completing that circle returns to Part Design.
 
 ## Development order
 

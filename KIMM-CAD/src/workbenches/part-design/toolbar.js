@@ -13,6 +13,19 @@ const partDesignActions = [
   'Linear pattern', 'Multi-transform', 'Boolean feature', 'Subtractive pipe', 'Subtractive loft',
 ];
 
+const workflowCommands = {
+  2: 'partDesign.createSketch',
+  13: 'partDesign.revolveBracket',
+  19: 'partDesign.pocketCircle',
+  27: 'partDesign.polarPattern',
+};
+
+const workflowLabels = {
+  13: 'Revolve bracket profile',
+  19: 'Pocket circle sketch',
+  27: 'Polar pattern (4 holes)',
+};
+
 export const partDesignWorkbench = {
   id: 'part-design',
   label: 'Part Design',
@@ -20,8 +33,8 @@ export const partDesignWorkbench = {
   toolbarLine: Array.from({ length: 40 }, (_, offset) => ({
     id: `part-design-${offset + 1}`,
     icon: iconPath(offset + 1),
-    label: partDesignActions[offset] || `Part Design command ${offset + 1}`,
-    command: offset === 1 ? 'partDesign.createSketch' : null,
+    label: workflowLabels[offset + 1] || partDesignActions[offset] || `Part Design command ${offset + 1}`,
+    command: workflowCommands[offset + 1] || null,
     separatorAfter: [3, 8, 14, 20, 27, 34].includes(offset + 1),
   })),
   sketchAttachmentFlow: Object.freeze({
