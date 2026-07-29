@@ -1,0 +1,16 @@
+{
+  "name": "kimm-cam-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "start": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "check": "node --check src/main.js && node --check src/app/assembly-shell.js && node --check src/common/tabs.js && node --check src/workflows/tool-flow.js"
+  },
+  "devDependencies": {
+    "vite": "^8.1.5"
+  }
+}
