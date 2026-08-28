@@ -1,0 +1,23 @@
+{
+  "name": "kimm-sys-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build:catalog": "node scripts/build-component-catalog.mjs",
+    "icons:transparent": "node scripts/make-ui-icons-transparent.mjs",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
+  },
+  "devDependencies": {
+    "@openai/sites-vite-plugin": "^0.2.0",
+    "@vitejs/plugin-react": "6.0.2",
+    "sharp": "^0.35.4",
+    "vite": "8.0.13"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "total": 338,
+  "withImages": 336,
+  "failures": [
+    {
+      "id": "SignalNumHopSISO",
+      "source": "C:\\Users\\riyun\\OneDrive\\Desktop\\KIMM\\KIMM-SYS24\\componentLibraries\\defaultLibrary\\Special\\NumHop.svg",
+      "error": "Input file is missing: C:\\Users\\riyun\\OneDrive\\Desktop\\KIMM\\KIMM-SYS24\\componentLibraries\\defaultLibrary\\Special\\NumHop.svg"
+    }
+  ]
+}
