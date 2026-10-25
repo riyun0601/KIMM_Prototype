@@ -1,0 +1,72 @@
+:root { color-scheme: dark; font-family: "Segoe UI", "Malgun Gothic", sans-serif; }
+* { box-sizing: border-box; }
+html { min-height: 100%; }
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: #edf6ff;
+  background:
+    radial-gradient(ellipse 65% 45% at 50% 38%, rgba(45, 99, 170, .31), transparent 75%),
+    linear-gradient(140deg, #061322, #0a1d35 58%, #071526);
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .27;
+  background-image: linear-gradient(rgba(131, 171, 217, .12) 1px, transparent 1px), linear-gradient(90deg, rgba(131, 171, 217, .12) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: linear-gradient(to bottom, transparent, black 30%, black 70%, transparent);
+}
+.home {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(52px, 8vh, 92px);
+  padding: 64px 28px;
+}
+h1 {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(2rem, 4.1vw, 3.6rem);
+  font-weight: 650;
+  letter-spacing: -.045em;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+.apps {
+  display: flex;
+  width: min(100%, 1090px);
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(14px, 2.1vw, 28px);
+}
+.apps a {
+  display: grid;
+  width: clamp(134px, 16vw, 188px);
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(160, 199, 245, .18);
+  border-radius: 30px;
+  background: rgba(225, 240, 255, .055);
+  box-shadow: 0 17px 42px rgba(0, 0, 0, .17);
+  text-decoration: none;
+  transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+}
+.apps a:hover, .apps a:focus-visible {
+  transform: translateY(-7px);
+  background: rgba(225, 240, 255, .12);
+  box-shadow: 0 22px 46px rgba(0, 0, 0, .27);
+}
+.apps a:focus-visible { outline: 3px solid #9ac9ff; outline-offset: 5px; }
+.apps img { display: block; width: 77%; height: 77%; object-fit: contain; }
+@media (max-width: 620px) {
+  .home { justify-content: flex-start; padding-top: 18vh; }
+  .apps a { width: min(39vw, 172px); border-radius: 24px; }
+}
+@media (prefers-reduced-motion: reduce) { .apps a { transition: none; } }
