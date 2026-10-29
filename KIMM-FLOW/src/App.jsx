@@ -178,6 +178,7 @@ export default function App() {
       <section className="viewport-area">
         <div className="tabs" role="tablist">
           {tabs.map(tab => <button role="tab" aria-selected={activeTab === tab} className={activeTab === tab ? "active" : ""} onClick={() => selectTab(tab)} key={tab}>{tab}</button>)}
+
         </div>
         <div className={`viewport workspace-${slug(activeTab)}`} aria-label={`${activeTab} workspace`}>
           {activeTab === "Console" && <div className="viewport-label">Console</div>}

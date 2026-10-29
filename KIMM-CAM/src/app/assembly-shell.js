@@ -225,7 +225,7 @@ function procedureContent() {
     ['engraving', '2차원 조각'],
   ];
   const routeFields = [
-    ['overlap', '겹치디다 [%]'],
+    ['overlap', '겹쳐지다 [%]'],
     ['materialAllowance', '재료 잔량'],
     ['maxDepth', '최대 절입량'],
     ['offset', '가공 오프셋'],

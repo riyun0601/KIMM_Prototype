@@ -46,7 +46,7 @@ h1 {
   flex-wrap: wrap;
   gap: clamp(14px, 2.1vw, 28px);
 }
-.apps a {
+.apps .app-launch {
   display: grid;
   width: clamp(134px, 16vw, 188px);
   aspect-ratio: 1;
@@ -58,15 +58,24 @@ h1 {
   text-decoration: none;
   transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
 }
-.apps a:hover, .apps a:focus-visible {
+.apps .app-launch:hover, .apps .app-launch:focus-visible {
   transform: translateY(-7px);
   background: rgba(225, 240, 255, .12);
   box-shadow: 0 22px 46px rgba(0, 0, 0, .27);
 }
-.apps a:focus-visible { outline: 3px solid #9ac9ff; outline-offset: 5px; }
+.apps .app-launch:focus-visible { outline: 3px solid #9ac9ff; outline-offset: 5px; }
 .apps img { display: block; width: 77%; height: 77%; object-fit: contain; }
 @media (max-width: 620px) {
   .home { justify-content: flex-start; padding-top: 18vh; }
-  .apps a { width: min(39vw, 172px); border-radius: 24px; }
+  .apps .app-launch { width: min(39vw, 172px); border-radius: 24px; }
 }
-@media (prefers-reduced-motion: reduce) { .apps a { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .apps .app-launch { transition: none; } }
+
+/* Resources sit below the existing icon cards without changing their geometry. */
+.app-card { position: relative; }
+.app-resources { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); padding-top: 12px; text-align: center; white-space: nowrap; font-size: clamp(8px, .94vw, 11px); }
+.manual-links { display: flex; align-items: center; justify-content: center; gap: 4px; }
+.manual-links a { color: inherit; text-decoration: none; border: 1px solid rgba(160, 199, 245, .35); border-radius: 4px; padding: 3px 5px; }
+.survey-link { display: inline-block; margin-top: 9px; color: inherit; text-decoration: none; }
+.app-resources a:focus-visible { outline: 2px solid #9ac9ff; outline-offset: 2px; }
+@media (max-width: 1080px) { .apps { row-gap: 88px; } }

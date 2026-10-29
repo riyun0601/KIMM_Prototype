@@ -65,6 +65,7 @@ async function prepareApp(app, staged) {
   });
 
   const sourceDir = path.join(staged, 'src');
+  await replaceRequired(path.join(staged, 'index.html'), '<head>', `<head><base href="/${app.slug}/">`);
   if (app.slug === 'flow') {
     const icons = await replaceInSource(sourceDir, '/icons/', '/flow/icons/');
     const models = await replaceInSource(sourceDir, '/models/', '/flow/models/');
@@ -81,7 +82,7 @@ async function prepareApp(app, staged) {
     if (!assets || !icons) throw new Error('SYS asset paths were not found');
     // The source project's Sites deployment plugin is not needed in Netlify's static build.
     const config = path.join(staged, 'vite.config.js');
-    await replaceRequired(config, "import { sites } from '@openai/sites-vite-plugin'\n", '');
+    await replaceRequired(config, "import { sites } from '@openai/sites-vite-plugin'", '');
     await replaceRequired(config, 'plugins: [react(), sites()]', 'plugins: [react()]');
   }
 }
@@ -97,9 +98,12 @@ async function main() {
   await rm(outputRoot, { recursive: true, force: true });
   await mkdir(stagingRoot, { recursive: true });
   await mkdir(outputRoot, { recursive: true });
+  await cp(path.join(root, 'evaluation.js'), path.join(stagingRoot, 'evaluation.js'));
+  await cp(path.join(root, 'evaluation.js'), path.join(outputRoot, 'evaluation.js'));
   await cp(path.join(root, 'index.html'), path.join(outputRoot, 'index.html'));
   await cp(path.join(root, 'home.css'), path.join(outputRoot, 'home.css'));
   await cp(path.join(root, 'icons'), path.join(outputRoot, 'icons'), { recursive: true });
+  await cp(path.join(root, 'manuals'), path.join(outputRoot, 'manuals'), { recursive: true });
 
   for (const app of apps) {
     console.log(`\nBuilding ${app.source} → /${app.slug}/`);
@@ -120,7 +124,8 @@ async function main() {
   }
 
   const required = [
-    'index.html', 'home.css',
+    'index.html', 'home.css', 'evaluation.js',
+    ...['CAD', 'CAM', 'Flow', 'STR', 'SYS'].map(name => `manuals/KIMM-${name} 사용자 평가용 튜토리얼.pdf`),
     ...apps.map(({ slug }) => `${slug}/index.html`),
     'flow/models/polyMesh/metadata.json',
     'flow/models/polyMesh/points.bin',

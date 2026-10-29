@@ -111,6 +111,7 @@ function render() {
     <footer class="status-bar"><span class="status-progress"></span><span id="status-message">${statusMessage}</span><span class="units">Unit system: mm, ton, s, °C</span></footer>
   </main>`;
   mountThreeViewport();
+
 }
 
 function mountThreeViewport() {
