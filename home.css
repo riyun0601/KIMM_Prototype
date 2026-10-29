@@ -76,6 +76,7 @@ h1 {
 .app-resources { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); padding-top: 12px; text-align: center; white-space: nowrap; font-size: clamp(8px, .94vw, 11px); }
 .manual-links { display: flex; align-items: center; justify-content: center; gap: 4px; }
 .manual-links a { color: inherit; text-decoration: none; border: 1px solid rgba(160, 199, 245, .35); border-radius: 4px; padding: 3px 5px; }
-.survey-link { display: inline-block; margin-top: 9px; color: inherit; text-decoration: none; }
+.survey-link { display: inline-flex; align-items: center; gap: 4px; margin-top: 9px; color: inherit; text-decoration: none; }
+.survey-link svg { flex: none; width: 12px; height: 12px; }
 .app-resources a:focus-visible { outline: 2px solid #9ac9ff; outline-offset: 2px; }
 @media (max-width: 1080px) { .apps { row-gap: 88px; } }
